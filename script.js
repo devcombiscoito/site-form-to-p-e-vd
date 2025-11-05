@@ -6,9 +6,9 @@ const telaBonus = document.getElementById('telaBonus');
 const contadorElement = document.getElementById('contador');
 const linkEbook = document.getElementById('linkEbook');
 
-// --- CONSTANTES DO TURSO (COM SUAS CHAVES) ---
-const TURSO_URL = 'https://formulario-vercel-icfg-htbjmcwnv61khtdsyrgmkmdg.aws-us-east-1.turso.io';
-const TURSO_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NjIzNzM3MDIsImlkIjoiZGNlM2FmN2QtYzM3ZC00ZTc4LWIwZjItNDY2ZDNkZmIzYThmIiwicmlkIjoiZmVmYzRkYmUtZDhlNy00ZjQ4LTk1YTAtYmUxM2FjYzM2YWMxIn0._Dc75whaLKE7QaetpTwKlT_hAHYH9EbtamGOj0U1wupcAuyjwKgeb3mSltgOVGoA15cOBWsz_o6gMditHnLABw';
+// --- CONSTANTES DO TURSO (COM SUAS NOVAS CHAVES) ---
+const TURSO_URL = 'https://formulario-devcombiscoito.aws-us-east-1.turso.io';
+const TURSO_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJfV01BaHJxS0VmQ1Q3cGFIZk5OcDVBIn0.4XK-y7zj6YlzY9Pif5JLMxehrzDyz1FQSx_eIC1xQricvZ9NF9WBWLJ8KgBqZhJn2MwTP_0okZEVV5iDLnNVCg';
 // -------------------------------------
 
 const TEMPO_BONUS = 30;
