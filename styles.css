@@ -1,0 +1,218 @@
+/* ========================================================== */
+/* 1. RESET E ESTILOS BASE */
+/* ========================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    /* Garante que padding e border não aumentem o tamanho final dos elementos */
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+body {
+    background-color: #121212; /* Fundo escuro intenso */
+    color: #e0e0e0; /* Texto claro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+header h1 {
+    color: #4CAF50; /* Cor de destaque para o título */
+    margin-bottom: 5px;
+    font-size: 2em;
+}
+
+/* ========================================================== */
+/* 2. ESTILIZAÇÃO DO FORMULÁRIO PRINCIPAL */
+/* ========================================================== */
+#cadastroForm {
+    width: 100%;
+    max-width: 500px; 
+    background-color: #1e1e1e; /* Fundo mais escuro que o body */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Sombra suave */
+}
+
+/* Estilo para cada grupo de campo */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo para os rótulos */
+.form-group label {
+    font-weight: 600; /* Levemente mais negrito */
+    margin-bottom: 8px;
+    font-size: 1em;
+}
+
+/* Estilo para os campos de texto e email */
+.form-group input:not([type="radio"]),
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+/* Efeito de foco */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* ========================================================== */
+/* 3. ESTILIZAÇÃO DOS RADIO BUTTONS (Seleção Única) */
+/* ========================================================== */
+.radio-group {
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 6px;
+}
+
+.radio-group legend {
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 15px;
+    padding: 0 5px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Esconde o radio padrão para estilizar o customizado */
+.radio-option input[type="radio"] {
+    opacity: 0; 
+    width: 0;
+    height: 0;
+}
+
+/* Estilo do rótulo para criar o design customizado */
+.radio-option label {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-weight: normal;
+    user-select: none; /* Não permite selecionar o texto */
+}
+
+/* Círculo customizado (o que fica visível) */
+.radio-option label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid #555;
+    border-radius: 50%;
+    background-color: #1e1e1e;
+    transition: border-color 0.2s;
+}
+
+/* Ponto dentro do círculo quando selecionado */
+.radio-option input[type="radio"]:checked + label::before {
+    border-color: #4CAF50;
+}
+.radio-option input[type="radio"]:checked + label::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+}
+
+/* ========================================================== */
+/* 4. ESTILIZAÇÃO DO BOTÃO DE SUBMISSÃO */
+/* ========================================================== */
+.submit-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #4CAF50;
+    color: #121212; /* Texto escuro no botão */
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 25px;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+.submit-button:active {
+    transform: scale(0.98);
+}
+
+/* ========================================================== */
+/* 5. ESTILIZAÇÃO DA TELA DE BÔNUS/ADS */
+/* ========================================================== */
+#telaBonus {
+    width: 100%;
+    max-width: 500px;
+    background-color: #1e1e1e;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+#telaBonus h2 {
+    color: #FFC107; /* Cor de alerta/bônus */
+    margin-bottom: 15px;
+}
+
+#telaBonus p {
+    margin-bottom: 15px;
+}
+
+#contador {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+#linkEbook {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Cor para link/download */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+#linkEbook:hover {
+    background-color: #0056b3;
+}
