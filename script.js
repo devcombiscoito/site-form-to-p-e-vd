@@ -6,9 +6,9 @@ const telaBonus = document.getElementById('telaBonus');
 const contadorElement = document.getElementById('contador');
 const linkEbook = document.getElementById('linkEbook');
 
-// --- CONSTANTES DO TURSO (COM SUAS NOVAS CHAVES) ---
+// --- CONSTANTES DO TURSO (COM SUAS NOVAS CHAVES CORRETAS) ---
 const TURSO_URL = 'https://formulario-devcombiscoito.aws-us-east-1.turso.io';
-const TURSO_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJfV01BaHJxS0VmQ1Q3cGFIZk5OcDVBIn0.4XK-y7zj6YlzY9Pif5JLMxehrzDyz1FQSx_eIC1xQricvZ9NF9WBWLJ8KgBqZhJn2MwTP_0okZEVV5iDLnNVCg';
+const TURSO_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NjIzNzc0MzAsImlkIjoiNGFjMGI0YjYtOTEzNS00ZTViLTlmMDgtOTIxM2RiMGY3ZmJhIiwicmlkIjoiMDRmYTJjNTAtODM4Yi00YjQ1LWIxNTgtNDc5ZjdiNmJhZWU5In0.yRnwk9WCnmQhnGIbWRVWBcOOK0OTvQG5txx3S0SVePzCq5WtVdX18H3g38-pXIDpSNpm4tfbAQ9tQ8_DrUDsCw';
 // -------------------------------------
 
 const TEMPO_BONUS = 30;
@@ -91,17 +91,20 @@ async function enviarDadosParaAPI(dados) {
 
         const result = await response.json();
 
+        // Checa se o resultado da primeira (e única) query foi 'ok'
         if (result.results[0].type === 'ok') {
             console.log("Turso: Submissão bem-sucedida!");
             iniciarTelaBonus(); 
             
         } else {
+            // Se o Turso retornar um erro (ex: email duplicado)
             throw new Error(result.results[0].error.message);
         }
         
     } catch (error) {
         console.error("Erro ao enviar os dados para o Turso:", error.message);
 
+        // Checagem de e-mail duplicado
         if (error.message && error.message.includes("UNIQUE constraint failed: respostas.email")) {
             alert("Este e-mail já está em nossa base. Verifique sua caixa de entrada!");
         } else {
