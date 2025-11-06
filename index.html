@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Bônus - Coleta de Dados Qualificados</title>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="88ca7490-7089-40ac-9b98-f50a4066c467"></script>
+    
     <link rel="stylesheet" href="styles.css">
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8994661261948740"
          crossorigin="anonymous"></script>
+
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="88ca7490-7089-40ac-9b98-f50a4066c467"></script>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -120,6 +124,12 @@
             ></textarea>
         </div>
 
+        <div id="recaptcha-container" 
+             class="g-recaptcha"
+             data-sitekey="6Leb5AQsAAAAAOPT07sIy2nLnyUJdBjuhDMSLT4i"
+             data-callback="onRecaptchaSuccess"
+             data-size="invisible">
+        </div>
         <div class="button-container">
             <button type="submit" class="submit-button">QUERO MEU E-BOOK</button>
         </div>
