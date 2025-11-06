@@ -111,12 +111,10 @@ header h1 {
     margin-right: auto;
 }
 
-/* --- CORREÇÃO DE ALINHAMENTO VERTICAL (Flexbox) --- */
-
 .radio-option,
 .checkbox-option {
     display: flex; 
-    align-items: center; /* Centraliza verticalmente */
+    align-items: center; 
     margin-bottom: 15px; 
 }
 
@@ -132,7 +130,6 @@ header h1 {
     margin-bottom: 0; 
 }
 
-/* --- CÍRCULO DO RADIO --- */
 .radio-option input[type="radio"] { opacity: 0; width: 0; height: 0; }
 .radio-option label::before {
     content: ''; 
@@ -159,7 +156,6 @@ header h1 {
     border-radius: 50%;
 }
 
-/* --- QUADRADO DO CHECKBOX --- */
 .checkbox-option input[type="checkbox"] { opacity: 0; width: 0; height: 0; }
 .checkbox-option label::before {
     content: ''; 
@@ -261,4 +257,34 @@ header h1 {
 #linkEbook:hover {
     background-color: #C3A336;
     box-shadow: 0 2px 5px rgba(218, 165, 32, 0.4);
+}
+
+/* ========================================================== */
+/* 6. ESTILO DO BLOCO DE ANÚNCIO (ADSENSE) */
+/* ========================================================== */
+
+.adsense-container {
+    /* O anúncio precisa de espaço para carregar */
+    min-height: 250px; 
+    width: 100%;
+    max-width: 550px; /* Mesmo tamanho do seu form */
+    margin: 25px 0;
+    padding: 10px;
+    /* Dando um destaque enquanto o anúncio carrega */
+    background-color: #262626; 
+    border: 1px dashed #DAA520;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    text-align: center;
+}
+
+/* O <ins> tag que o Google bota */
+ins.adsbygoogle {
+    background-color: transparent;
+    text-align: center;
+    width: 100%;
+    height: 100%;
 }

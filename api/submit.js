@@ -14,6 +14,7 @@ export const config = {
     if (valor === null || valor === undefined) {
       return { type: "null" };
     }
+    // Garante que o valor seja uma string (Turso é sensível a tipos)
     return { type: "text", value: String(valor) };
   }
   
@@ -31,7 +32,6 @@ export const config = {
   
     // 3. Monta o corpo da requisição para o Turso
     
-    // Usamos (?) para parâmetros posicionais
     const sqlQuery = `
         INSERT INTO respostas (
             nome, email, linguagem_favorita, nivel_atual, 
@@ -40,7 +40,7 @@ export const config = {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?);
     `;
   
-    // --- MUDANÇA FINAL: Criar o array de OBJETOS que o Turso espera ---
+    // --- Criar o array de OBJETOS que o Turso espera ---
     const argsFormatados = [
       formatarArgsParaTurso(dadosSQL.nome),
       formatarArgsParaTurso(dadosSQL.email),
@@ -54,7 +54,6 @@ export const config = {
   
     const requestBody = {
         requests: [
-            // Envia o array de objetos formatados
             { type: "execute", stmt: { sql: sqlQuery, args: argsFormatados } },
             { type: "close" }
         ]
@@ -81,8 +80,15 @@ export const config = {
   
       // 5. Retorna a resposta (boa ou ruim) para o script.js
       if (result.results && result.results[0] && result.results[0].type === 'ok') {
-          // Sucesso!
+          
+          // --- AQUI ESTÁ O SEU CÓDIGO ---
+          // Este log aparecerá nos Logs da VERCEL
+          console.log("corretamente executado"); 
+          // -----------------------------
+          
+          // Sucesso! Retorna 201 (Created) para o script.js
           return new Response(JSON.stringify({ message: "Sucesso!" }), { status: 201 });
+          
       } else {
           // Erro (ex: email duplicado)
           const errorMessage = (result.results && result.results[0]) ? result.results[0].error.message : "Resposta inesperada do Turso";

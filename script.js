@@ -6,15 +6,14 @@ const telaBonus = document.getElementById('telaBonus');
 const contadorElement = document.getElementById('contador');
 const linkEbook = document.getElementById('linkEbook');
 
-// --- A NOVA URL DA API (É O NOSSO PRÓPRIO SITE!) ---
-// Esta é a URL do arquivo de "proxy" que vamos criar na Vercel
+// --- A URL DA API (É O NOSSO PRÓPRIO SITE!) ---
 const API_URL = '/api/submit'; 
 // -------------------------------------
 
 const TEMPO_BONUS = 30;
 
 // ==========================================================
-// 2. FUNÇÃO PRINCIPAL: Lidar com o envio (ATUALIZADA)
+// 2. FUNÇÃO PRINCIPAL: Lidar com o envio
 // ==========================================================
 form.addEventListener('submit', function(event) {
     event.preventDefault(); 
@@ -58,22 +57,19 @@ form.addEventListener('submit', function(event) {
 async function enviarDadosParaAPI(dadosSQL) { 
     
     try {
-        // O fetch agora é para a nossa própria API /api/submit
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(dadosSQL) // Envia os dados para o nosso proxy
+            body: JSON.stringify(dadosSQL) 
         });
 
-        // O proxy nos retorna 201 (Created) se deu certo
         if (response.status === 201) {
             console.log("Proxy Vercel: Submissão bem-sucedida!");
             iniciarTelaBonus(); 
             
         } else {
-            // Se o proxy nos retornar um erro (ex: 400 ou 500)
             const errorResult = await response.json();
             throw new Error(errorResult.error || "Erro desconhecido do servidor");
         }
@@ -81,11 +77,9 @@ async function enviarDadosParaAPI(dadosSQL) {
     } catch (error) {
         console.error("Erro ao enviar os dados para o Proxy:", error.message);
 
-        // Checagem de e-mail duplicado
         if (error.message && error.message.includes("UNIQUE constraint failed: respostas.email")) {
             alert("Este e-mail já está em nossa base. Verifique sua caixa de entrada!");
         } else {
-            // O erro "Failed to fetch" não deve acontecer aqui, mas se acontecer, é um erro de rede
             alert(`Erro ao conectar ao servidor: ${error.message}.`);
         }
     }
@@ -93,11 +87,25 @@ async function enviarDadosParaAPI(dadosSQL) {
 
 
 // ==========================================================
-// 4. FUNÇÃO: Controlar a tela de bônus (Sem alterações)
+// 4. FUNÇÃO: Controlar a tela de bônus (COM ADSENSE)
 // ==========================================================
 function iniciarTelaBonus() {
+    // 1. Ocultar o formulário
     form.style.display = 'none';
+    
+    // 2. Mostrar a tela de bônus/ads
     telaBonus.style.display = 'block';
+
+    // 3. --- AQUI ESTÁ O "PUSH" DO ADSENSE ---
+    try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        console.log("AdSense: Pedido de anúncio enviado.");
+    } catch (e) {
+        console.error("AdSense: Falha ao carregar o anúncio.", e);
+    }
+    // ------------------------------------------
+
+    // 4. Iniciar o contador (como antes)
     let tempoRestante = TEMPO_BONUS;
     contadorElement.textContent = tempoRestante;
     
