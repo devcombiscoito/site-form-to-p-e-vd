@@ -1,12 +1,24 @@
 // Este arquivo (api/submit.js) é o nosso mini-servidor (Proxy) na Vercel
-// Esta é a versão FINAL, corrigindo o erro "map vs sequence"
+// Esta é a versão FINAL, corrigindo o formato de dados para o Turso.
 
 export const config = {
     runtime: 'edge', 
   };
   
+  /**
+   * Função auxiliar para formatar os dados para o Turso.
+   * Transforma um valor (ex: "Lorenzo") em { "type": "text", "value": "Lorenzo" }
+   * Transforma um valor nulo (ex: null) em { "type": "null" }
+   */
+  function formatarArgsParaTurso(valor) {
+    if (valor === null || valor === undefined) {
+      return { type: "null" };
+    }
+    return { type: "text", value: String(valor) };
+  }
+  
   export default async function handler(request) {
-    // 1. Pega os dados que o script.js enviou (como um objeto/map)
+    // 1. Pega os dados que o script.js enviou
     const dadosSQL = await request.json();
   
     // 2. Pega as chaves secretas das Variáveis de Ambiente da Vercel
@@ -19,7 +31,7 @@ export const config = {
   
     // 3. Monta o corpo da requisição para o Turso
     
-    // --- MUDANÇA 1: Usar (?) em vez de (:nome) ---
+    // Usamos (?) para parâmetros posicionais
     const sqlQuery = `
         INSERT INTO respostas (
             nome, email, linguagem_favorita, nivel_atual, 
@@ -28,23 +40,22 @@ export const config = {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?);
     `;
   
-    // --- MUDANÇA 2: Converter o objeto (map) em um array (sequence) ---
-    // A ordem DEVE ser a mesma do INSERT acima.
-    const argsArray = [
-      dadosSQL.nome,
-      dadosSQL.email,
-      dadosSQL.linguagem_favorita,
-      dadosSQL.nivel_atual,
-      dadosSQL.desafio_principal,
-      dadosSQL.data_limite,
-      dadosSQL.interesses,
-      dadosSQL.feedback_ebook
+    // --- MUDANÇA FINAL: Criar o array de OBJETOS que o Turso espera ---
+    const argsFormatados = [
+      formatarArgsParaTurso(dadosSQL.nome),
+      formatarArgsParaTurso(dadosSQL.email),
+      formatarArgsParaTurso(dadosSQL.linguagem_favorita),
+      formatarArgsParaTurso(dadosSQL.nivel_atual),
+      formatarArgsParaTurso(dadosSQL.desafio_principal),
+      formatarArgsParaTurso(dadosSQL.data_limite),
+      formatarArgsParaTurso(dadosSQL.interesses),
+      formatarArgsParaTurso(dadosSQL.feedback_ebook)
     ];
   
     const requestBody = {
         requests: [
-            // --- MUDANÇA 3: Enviar o array (argsArray) ---
-            { type: "execute", stmt: { sql: sqlQuery, args: argsArray } },
+            // Envia o array de objetos formatados
+            { type: "execute", stmt: { sql: sqlQuery, args: argsFormatados } },
             { type: "close" }
         ]
     };
