@@ -1,11 +1,23 @@
 /* ========================================================== */
+/* 0. IMPORTAÇÃO DE FONTE PREMIUM */
+/* ========================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+/* ========================================================== */
 /* 1. RESET E ESTILOS BASE (DARK MODE LUXUOSO) */
 /* ========================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    /* Fonte importada para um visual mais limpo */
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+html {
+    /* --- SCROLLBAR (FIREFOX) --- */
+    scrollbar-color: #DAA520 #1a1a1a;
+    scrollbar-width: thin;
 }
 
 body {
@@ -14,34 +26,51 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px;
+    /* Padding menor nos lados para telas pequenas */
+    padding: 40px 20px; 
     min-height: 100vh;
+    line-height: 1.6;
+    
+    /* Melhor renderização de fontes */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 header {
     text-align: center;
     margin-bottom: 40px;
-    padding: 10px;
+    max-width: 600px;
 }
 
 header h1 {
-    color: #DAA520;
-    margin-bottom: 5px;
-    font-size: 2.5em;
+    /* --- EFEITO DE GRADIENTE DE TEXTO --- */
+    background: linear-gradient(90deg, #DAA520, #f0e68c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    margin-bottom: 10px;
+    font-size: 2.8em;
     font-weight: 300;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+}
+
+header p {
+    color: #b0b0b0; /* Cinza um pouco mais claro */
+    font-size: 1.1em;
+    font-weight: 300;
 }
 
 /* ========================================================== */
-/* 2. ESTILIZAÇÃO DO FORMULÁRIO PRINCIPAL E CAMPOS TEXTUAIS/SELEÇÃO */
+/* 2. ESTILIZAÇÃO DO FORMULÁRIO PRINCIPAL E CAMPOS TEXTUAIS */
 /* ========================================================== */
 #cadastroForm {
     width: 100%;
     max-width: 550px; 
     background-color: #1a1a1a;
-    padding: 35px;
+    padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7); 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8); 
     border: 1px solid #282828;
 }
 
@@ -49,27 +78,30 @@ header h1 {
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
+    position: relative; /* Para o ícone do select */
 }
 
 .form-group label {
     font-weight: 600; 
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 1.1em;
     color: #DAA520;
     letter-spacing: 0.5px;
 }
 
+/* Estilo unificado para todos os inputs */
 .form-group input:not([type="radio"]):not([type="checkbox"]),
 .form-group textarea,
 .form-group select { 
     width: 100%;
-    padding: 14px;
+    padding: 15px;
     border: 1px solid #333;
     border-radius: 8px;
     background-color: #262626;
     color: #f5f5f5;
     font-size: 1em;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    /* --- TRANSIÇÃO SUAVE --- */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     resize: vertical;
     appearance: none; 
 }
@@ -77,50 +109,77 @@ header h1 {
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: #888;
+    font-weight: 300;
 }
 
+/* --- EFEITO DE FOCO POLIDO --- */
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
     border-color: #DAA520;
     outline: none;
-    box-shadow: 0 0 10px rgba(218, 165, 32, 0.4);
+    box-shadow: 0 0 12px rgba(218, 165, 32, 0.5);
     background-color: #2c2c2c;
 }
 
+/* --- SETA CUSTOMIZADA PARA O DROPDOWN (SELECT) --- */
+.form-group select {
+    padding-right: 40px; /* Espaço para a seta */
+    cursor: pointer;
+}
+.form-group::after {
+    /* Adiciona a seta SÓ se for um campo select */
+    content: '▼';
+    position: absolute;
+    right: 15px;
+    top: 54px; /* Ajuste manual (label + padding) */
+    font-size: 0.8em;
+    color: #DAA520;
+    pointer-events: none; /* Deixa o clique passar para o select */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+.form-group select:focus + ::after {
+    opacity: 1;
+}
+
 /* ========================================================== */
-/* 3. ESTILIZAÇÃO DOS AGRUPAMENTOS (RADIO/CHECKBOX) - ALINHAMENTO CORRIGIDO */
+/* 3. ESTILIZAÇÃO DOS AGRUPAMENTOS (RADIO/CHECKBOX) */
 /* ========================================================== */
 .radio-group,
 .checkbox-group {
-    padding: 20px;
-    border: 1px solid #DAA520;
+    padding: 25px;
+    border: 1px solid #333;
     border-radius: 8px;
     margin-bottom: 30px;
+    background-color: #202020;
 }
 
 .radio-group legend,
 .checkbox-group legend {
-    font-weight: bold;
+    font-weight: 600;
     color: #DAA520;
     margin-bottom: 20px;
     padding: 0 10px;
-    width: 100%; 
-    text-align: center; 
-    margin-left: auto;
-    margin-right: auto;
+    width: auto;
+    text-align: left;
+    margin-left: -10px;
 }
 
 .radio-option,
 .checkbox-option {
     display: flex; 
     align-items: center; 
-    margin-bottom: 15px; 
+    margin-bottom: 18px; 
+}
+.radio-option:last-child,
+.checkbox-option:last-child {
+    margin-bottom: 0;
 }
 
 .radio-option label,
 .checkbox-option label {
-    font-weight: normal;
+    font-weight: 400; /* Mais suave */
     color: #f5f5f5; 
     font-size: 1em;
     position: relative; 
@@ -130,7 +189,16 @@ header h1 {
     margin-bottom: 0; 
 }
 
-.radio-option input[type="radio"] { opacity: 0; width: 0; height: 0; }
+/* Esconde o input original */
+.radio-option input[type="radio"],
+.checkbox-option input[type="checkbox"] { 
+    opacity: 0; 
+    width: 0; 
+    height: 0; 
+    position: absolute;
+}
+
+/* --- O NOVO RADIO (Círculo) --- */
 .radio-option label::before {
     content: ''; 
     position: absolute; 
@@ -142,21 +210,30 @@ header h1 {
     border: 2px solid #555; 
     border-radius: 50%; 
     background-color: #1e1e1e;
+    transition: all 0.2s ease; /* Animação */
 }
-.radio-option input[type="radio"]:checked + label::before { border-color: #DAA520; }
-.radio-option input[type="radio"]:checked + label::after {
+.radio-option input[type="radio"]:checked + label::before { 
+    border-color: #DAA520; 
+    background-color: #333;
+}
+/* O Círculo de dentro */
+.radio-option label::after {
     content: ''; 
     position: absolute; 
     left: 6px; 
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scale(0); /* Começa invisível */
     width: 8px; 
     height: 8px; 
     background-color: #DAA520; 
     border-radius: 50%;
+    transition: transform 0.2s ease; /* Animação de "pop" */
+}
+.radio-option input[type="radio"]:checked + label::after {
+    transform: translateY(-50%) scale(1); /* Aparece */
 }
 
-.checkbox-option input[type="checkbox"] { opacity: 0; width: 0; height: 0; }
+/* --- O NOVO CHECKBOX (Quadrado) --- */
 .checkbox-option label::before {
     content: ''; 
     position: absolute; 
@@ -168,25 +245,38 @@ header h1 {
     border: 2px solid #555; 
     border-radius: 4px; 
     background-color: #1e1e1e;
+    transition: all 0.2s ease; /* Animação */
 }
 .checkbox-option input[type="checkbox"]:checked + label::before {
     background-color: #DAA520;
     border-color: #DAA520;
 }
-.checkbox-option input[type="checkbox"]:checked + label::after {
+/* O "check" (✓) */
+.checkbox-option label::after {
     content: '✓'; 
     position: absolute; 
     left: 4px; 
     top: 50%; 
-    transform: translateY(-50%); 
+    transform: translateY(-50%) scale(0); /* Começa invisível */
     font-size: 16px; 
     color: #1a1a1a;
     line-height: 1;
     font-weight: 900;
+    transition: transform 0.2s ease; /* Animação de "pop" */
+}
+.checkbox-option input[type="checkbox"]:checked + label::after {
+    transform: translateY(-50%) scale(1); /* Aparece */
 }
 
+/* Efeito de Foco (Acessibilidade) */
+.radio-option input[type="radio"]:focus + label::before,
+.checkbox-option input[type="checkbox"]:focus + label::before {
+    box-shadow: 0 0 8px rgba(218, 165, 32, 0.7);
+}
+
+
 /* ========================================================== */
-/* 4. BOTÃO DE SUBMISSÃO (Centralizado) */
+/* 4. BOTÃO DE SUBMISSÃO (O CENTRO DAS ATENÇÕES) */
 /* ========================================================== */
 .button-container {
     text-align: center; 
@@ -195,23 +285,29 @@ header h1 {
 
 .submit-button {
     padding: 18px 40px; 
-    background-color: #DAA520; 
+    /* --- GRADIENTE DE OURO --- */
+    background: linear-gradient(145deg, #f0c94b, #DAA520);
     color: #121212; 
     font-size: 1.4em;
-    font-weight: bold;
+    font-weight: 700; /* Mais forte */
+    letter-spacing: 0.5px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
-    box-shadow: 0 4px 10px rgba(218, 165, 32, 0.4);
+    /* --- SOMBRA SUAVE --- */
+    box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
+    /* --- TRANSIÇÃO SUAVE --- */
+    transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
     display: inline-block; 
 }
 .submit-button:hover {
-    background-color: #C3A336;
-    box-shadow: 0 6px 12px rgba(218, 165, 32, 0.6);
+    background: linear-gradient(145deg, #DAA520, #c3a336); /* Escurece */
+    box-shadow: 0 6px 20px rgba(218, 165, 32, 0.6);
+    transform: translateY(-2px); /* Efeito de "levantar" */
 }
 .submit-button:active {
-    transform: scale(0.99);
+    transform: translateY(1px) scale(0.98); /* Efeito de "clique" */
+    box-shadow: 0 2px 10px rgba(218, 165, 32, 0.4);
 }
 
 /* ========================================================== */
@@ -224,67 +320,155 @@ header h1 {
     padding: 40px;
     border-radius: 12px;
     text-align: center;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+    /* --- BRILHO DOURADO SUTIL --- */
+    box-shadow: 0 10px 25px rgba(218, 165, 32, 0.2);
     margin-top: 30px;
     border: 1px solid #DAA520;
 }
 #telaBonus h2 {
     color: #DAA520; 
-    margin-bottom: 15px;
-    font-size: 1.8em;
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: 600;
+}
+#telaBonus p {
+    font-size: 1.1em;
+    color: #c0c0c0;
+    margin-bottom: 25px;
 }
 #contador {
-    font-size: 2em;
-    font-weight: bold;
+    font-size: 2.5em; /* Maior */
+    font-weight: 700;
     color: #f5f5f5;
+    background-color: #262626;
     border: 1px solid #DAA520;
-    padding: 5px 10px;
-    border-radius: 4px;
+    padding: 5px 15px;
+    border-radius: 6px;
     display: inline-block;
+    min-width: 70px; /* Evita que o layout "pule" */
 }
+
+/* Botão de E-book (mesmo estilo do submit) */
 #linkEbook {
     display: inline-block;
-    padding: 12px 25px;
-    background-color: #DAA520; 
+    padding: 16px 35px;
+    background: linear-gradient(145deg, #f0c94b, #DAA520);
     color: #1a1a1a;
     text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-weight: 700;
     margin-top: 25px;
-    font-size: 1.1em;
-    transition: background-color 0.2s, box-shadow 0.2s;
+    font-size: 1.2em;
+    transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
 }
 #linkEbook:hover {
-    background-color: #C3A336;
-    box-shadow: 0 2px 5px rgba(218, 165, 32, 0.4);
+    background: linear-gradient(145deg, #DAA520, #c3a336);
+    box-shadow: 0 6px 20px rgba(218, 165, 32, 0.6);
+    transform: translateY(-2px);
 }
 
 /* ========================================================== */
 /* 6. ESTILO DO BLOCO DE ANÚNCIO (ADSENSE) */
 /* ========================================================== */
-
 .adsense-container {
-    /* O anúncio precisa de espaço para carregar */
     min-height: 250px; 
     width: 100%;
-    max-width: 550px; /* Mesmo tamanho do seu form */
-    margin: 25px 0;
+    max-width: 550px; 
+    margin: 30px 0;
     padding: 10px;
-    /* Dando um destaque enquanto o anúncio carrega */
     background-color: #262626; 
-    border: 1px dashed #DAA520;
+    /* Borda tracejada mais sutil */
+    border: 2px dashed #444; 
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #888;
     text-align: center;
+    transition: border-color 0.3s ease;
 }
-
 /* O <ins> tag que o Google bota */
 ins.adsbygoogle {
     background-color: transparent;
     text-align: center;
     width: 100%;
     height: 100%;
+}
+/* Quando o anúncio carregar (o google adiciona 'data-ad-status') */
+ins[data-ad-status="filled"] {
+    /* O contêiner pai fica com a borda dourada */
+    border-color: #DAA520; 
+}
+
+/* ========================================================== */
+/* 7. ESTILO DA BARRA DE ROLAGEM (CUSTOM SCROLLBAR) */
+/* ========================================================== */
+
+/* --- Para Chrome, Edge, Safari (WebKit) --- */
+::-webkit-scrollbar {
+  width: 12px; 
+  background-color: #1a1a1a;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #DAA520; 
+  border-radius: 10px; 
+  border: 3px solid #1a1a1a; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #C3A336; 
+}
+
+/* ========================================================== */
+/* 8. RESPONSIVIDADE (PARA FICAR LINDO NO CELULAR) */
+/* ========================================================== */
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px 10px; /* Menos padding lateral */
+    }
+
+    header {
+        margin-bottom: 30px;
+    }
+    
+    header h1 {
+        font-size: 2.1em; /* Título menor */
+    }
+
+    #cadastroForm {
+        padding: 25px; /* Menos padding no form */
+    }
+    
+    .radio-group,
+    .checkbox-group {
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    /* Remove a seta do dropdown no mobile (touch) */
+    .form-group::after {
+        display: none;
+    }
+
+    .submit-button {
+        padding: 16px 30px;
+        font-size: 1.2em;
+        width: 100%; /* Botão com largura total */
+    }
+
+    #telaBonus {
+        padding: 25px;
+    }
+    
+    #telaBonus h2 {
+        font-size: 1.6em;
+    }
 }
