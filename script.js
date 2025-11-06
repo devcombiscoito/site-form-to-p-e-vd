@@ -13,31 +13,12 @@ const API_URL = '/api/submit';
 const TEMPO_BONUS = 30;
 
 // ==========================================================
-// 2. FUNÇÃO PRINCIPAL: LIDAR COM O ENVIO (AGORA COM RECAPTCHA)
+// 2. FUNÇÃO PRINCIPAL: Lidar com o envio
 // ==========================================================
 form.addEventListener('submit', function(event) {
-    // 1. Sempre previne o envio padrão
     event.preventDefault(); 
-    
-    // 2. Em vez de enviar, agora nós "executamos" o reCaptcha.
-    //    O reCaptcha vai validar o usuário (invisivelmente).
-    //    Se for humano, ele vai chamar a função "onRecaptchaSuccess"
-    //    que nós definimos no index.html (data-callback).
-    console.log("Formulário submetido. Disparando reCaptcha...");
-    grecaptcha.execute();
-});
-
-// ==========================================================
-// 3. FUNÇÃO DE CALLBACK: O RECAPTCHA FOI UM SUCESSO
-//    Esta função SÓ é chamada se o Google aprovar o usuário.
-// ==========================================================
-function onRecaptchaSuccess(token) {
-    console.log("reCaptcha validado! Coletando dados...");
-    
-    // O 'token' é a prova do Google. Não precisamos dele para
-    // este método, mas é bom saber que ele existe.
-
     const formData = new FormData(form);
+
     const dadosFormulario = {};
     formData.forEach((value, key) => {
         if (Object.prototype.hasOwnProperty.call(dadosFormulario, key)) {
@@ -66,15 +47,12 @@ function onRecaptchaSuccess(token) {
     };
 
     console.log("Dados prontos para envio ao Proxy da Vercel:", dadosParaSQL);
-    
-    // Agora sim, enviamos os dados para o nosso back-end
     enviarDadosParaAPI(dadosParaSQL);
-}
+});
 
 
 // ==========================================================
-// 4. FUNÇÃO: Enviar os dados para o PROXY DA VERCEL
-//    (Esta função não muda)
+// 3. FUNÇÃO: Enviar os dados para o PROXY DA VERCEL
 // ==========================================================
 async function enviarDadosParaAPI(dadosSQL) { 
     
@@ -92,18 +70,12 @@ async function enviarDadosParaAPI(dadosSQL) {
             iniciarTelaBonus(); 
             
         } else {
-            // Se o proxy nos retornar um erro (ex: 400 ou 500)
             const errorResult = await response.json();
-            // Precisamos resetar o reCaptcha se der erro
-            grecaptcha.reset();
             throw new Error(errorResult.error || "Erro desconhecido do servidor");
         }
         
     } catch (error) {
         console.error("Erro ao enviar os dados para o Proxy:", error.message);
-        
-        // Reseta o reCaptcha para o usuário tentar de novo
-        grecaptcha.reset();
 
         if (error.message && error.message.includes("UNIQUE constraint failed: respostas.email")) {
             alert("Este e-mail já está em nossa base. Verifique sua caixa de entrada!");
@@ -115,20 +87,26 @@ async function enviarDadosParaAPI(dadosSQL) {
 
 
 // ==========================================================
-// 5. FUNÇÃO: Controlar a tela de bônus (COM ADSENSE)
-//    (Esta função não muda)
+// 4. FUNÇÃO: Controlar a tela de bônus (COM ADSENSE)
 // ==========================================================
+
 function iniciarTelaBonus() {
+    // 1. Ocultar o formulário
     form.style.display = 'none';
+    
+    // 2. Mostrar a tela de bônus/ads
     telaBonus.style.display = 'block';
 
+    // 3. --- AQUI ESTÁ O "PUSH" DO ADSENSE ---
     try {
         (adsbygoogle = window.adsbygoogle || []).push({});
         console.log("AdSense: Pedido de anúncio enviado.");
     } catch (e) {
         console.error("AdSense: Falha ao carregar o anúncio.", e);
     }
+    // ------------------------------------------
 
+    // 4. Iniciar o contador (como antes)
     let tempoRestante = TEMPO_BONUS;
     contadorElement.textContent = tempoRestante;
     
