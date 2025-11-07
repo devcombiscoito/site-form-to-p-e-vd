@@ -87,26 +87,30 @@ async function enviarDadosParaAPI(dadosSQL) {
 
 
 // ==========================================================
-// 4. FUNÇÃO: Controlar a tela de bônus (COM ADSENSE)
+// 4. FUNÇÃO: Controlar a tela de bônus (COM ANIMAÇÃO E ADSENSE)
 // ==========================================================
-
 function iniciarTelaBonus() {
     // 1. Ocultar o formulário
     form.style.display = 'none';
     
-    // 2. Mostrar a tela de bônus/ads
+    // 2. Mostrar a tela de bônus (ainda invisível, mas ocupando espaço)
     telaBonus.style.display = 'block';
 
-    // 3. --- AQUI ESTÁ O "PUSH" DO ADSENSE ---
+    // 3. Adicionar a classe 'visible' APÓS um tick do navegador
+    //    Isso força a animação de fade-in/slide-up do CSS
+    setTimeout(() => {
+        telaBonus.classList.add('visible');
+    }, 10); // 10ms é o suficiente
+
+    // 4. --- AQUI ESTÁ O "PUSH" DO ADSENSE ---
     try {
         (adsbygoogle = window.adsbygoogle || []).push({});
         console.log("AdSense: Pedido de anúncio enviado.");
     } catch (e) {
         console.error("AdSense: Falha ao carregar o anúncio.", e);
     }
-    // ------------------------------------------
 
-    // 4. Iniciar o contador (como antes)
+    // 5. Iniciar o contador (como antes)
     let tempoRestante = TEMPO_BONUS;
     contadorElement.textContent = tempoRestante;
     

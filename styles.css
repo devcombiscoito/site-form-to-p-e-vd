@@ -1,38 +1,36 @@
 /* ========================================================== */
-/* 0. IMPORTAÇÃO DE FONTE PREMIUM */
+/* 0. ANIMAÇÕES E FONTES PREMIUM */
 /* ========================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
-/* ========================================================== */
-/* 0.1. KEYFRAMES (ANIMAÇÕES CSS) */
-/* ========================================================== */
-@keyframes backgroundPan {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Animação para o Header e Form */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-@keyframes formPulse {
-    0% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0px rgba(218, 165, 32, 0); }
-    50% { box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 15px rgba(218, 165, 32, 0.2); }
-    100% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0px rgba(218, 165, 32, 0); }
+/* Animação para a Tela de Bônus (brilho) */
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 10px 25px rgba(218, 165, 32, 0.2);
+        border-color: #DAA520;
+    }
+    50% {
+        box-shadow: 0 10px 40px rgba(218, 165, 32, 0.5);
+        border-color: #f0e68c;
+    }
+    100% {
+        box-shadow: 0 10px 25px rgba(218, 165, 32, 0.2);
+        border-color: #DAA520;
+    }
 }
 
-@keyframes fadeInScale {
-    0% { opacity: 0; transform: scale(0.95); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-@keyframes lightWave {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-@keyframes textGlow {
-    0% { text-shadow: 0 0 5px rgba(218, 165, 32, 0.2); }
-    50% { text-shadow: 0 0 15px rgba(218, 165, 32, 0.7), 0 0 20px rgba(218, 165, 32, 0.5); }
-    100% { text-shadow: 0 0 5px rgba(218, 165, 32, 0.2); }
-}
 
 /* ========================================================== */
 /* 1. RESET E ESTILOS BASE (DARK MODE LUXUOSO) */
@@ -51,7 +49,7 @@ html {
 }
 
 body {
-    background-color: #0d0d0d;
+    background: linear-gradient(180deg, #111, #0d0d0d); /* Fundo mais sutil */
     color: #f5f5f5;
     display: flex;
     flex-direction: column;
@@ -59,8 +57,6 @@ body {
     padding: 40px 20px; 
     min-height: 100vh;
     line-height: 1.6;
-    position: relative; /* Para o fundo animado */
-    overflow-x: hidden; /* Evita scroll horizontal por elementos animados */
     
     /* Renderização de fonte suave */
     -webkit-font-smoothing: antialiased;
@@ -68,30 +64,15 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-/* --- CAMADA DE FUNDO ANIMADA --- */
-#animated-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Fica atrás de todo o conteúdo */
-    background: linear-gradient(270deg, #121212, #0d0d0d, #121212, #181818);
-    background-size: 400% 400%;
-    animation: backgroundPan 30s ease infinite;
-    opacity: 0.7; /* Suave */
-}
-
 header {
     text-align: center;
     margin-bottom: 40px;
     max-width: 600px;
-    /* Animação de entrada do header */
-    animation: fadeInScale 0.8s ease-out; 
+    /* --- Animação de entrada --- */
+    animation: slideUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) both;
 }
 
 header h1 {
-    /* --- EFEITO DE GRADIENTE DE TEXTO --- */
     background: linear-gradient(90deg, #DAA520, #f0e68c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -100,8 +81,8 @@ header h1 {
     font-size: 2.8em;
     font-weight: 300;
     letter-spacing: 0.5px;
-    /* Brilho sutil no H1 */
-    animation: textGlow 5s ease-in-out infinite; 
+    /* --- Sombra de texto --- */
+    text-shadow: 0 0 15px rgba(218, 165, 32, 0.3);
 }
 
 header p {
@@ -119,12 +100,11 @@ header p {
     background-color: #1a1a1a;
     padding: 40px;
     border-radius: 12px;
-    
-    /* --- ANIMAÇÃO DE PULSAÇÃO SUTIL NO FORM --- */
-    animation: formPulse 8s ease-in-out infinite; 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8); 
     border: 1px solid #282828;
-    position: relative;
-    z-index: 10; /* Garante que o formulário fique acima do fundo animado */
+    
+    /* --- Animação de entrada (com atraso) --- */
+    animation: slideUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s both;
 }
 
 .form-group {
@@ -142,7 +122,6 @@ header p {
     letter-spacing: 0.5px;
 }
 
-/* Estilo unificado para todos os inputs */
 .form-group input:not([type="radio"]):not([type="checkbox"]),
 .form-group textarea,
 .form-group select { 
@@ -163,7 +142,6 @@ header p {
     font-weight: 300;
 }
 
-/* --- EFEITO DE FOCO POLIDO --- */
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
@@ -173,7 +151,7 @@ header p {
     background-color: #2c2c2c;
 }
 
-/* --- LIMPEZA (Correção do "Triângulo") --- */
+/* Remove a seta padrão do navegador para um visual limpo */
 .form-group select {
     appearance: none; 
     -webkit-appearance: none;
@@ -183,7 +161,7 @@ header p {
 
 /* ========================================================== */
 /* 3. ESTILIZAÇÃO DOS AGRUPAMENTOS (RADIO/CHECKBOX) */
-/* (Correção da Posição da "Pergunta"/Legend) */
+/* (Com a correção da legenda) */
 /* ========================================================== */
 .radio-group,
 .checkbox-group {
@@ -199,11 +177,9 @@ header p {
 .checkbox-group legend {
     float: left;
     width: 100%;
-    
     font-weight: 600;
     color: #DAA520;
     margin-bottom: 20px;
-    
     padding: 0; 
     margin-left: 0; 
     text-align: left;
@@ -238,6 +214,7 @@ header p {
     min-height: 22px; 
 }
 
+/* Esconde o input original */
 .radio-option input[type="radio"],
 .checkbox-option input[type="checkbox"] { 
     opacity: 0; 
@@ -327,9 +304,6 @@ header p {
 .button-container {
     text-align: center; 
     margin-top: 30px; 
-    position: relative; /* Para o efeito de onda de luz */
-    overflow: hidden; /* Garante que a onda fique dentro do botão */
-    border-radius: 8px; /* Mesma borda do botão */
 }
 
 .submit-button {
@@ -345,8 +319,6 @@ header p {
     box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
     transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
     display: inline-block; 
-    position: relative;
-    z-index: 1; /* Acima da onda de luz */
 }
 .submit-button:hover {
     background: linear-gradient(145deg, #DAA520, #c3a336); 
@@ -358,26 +330,8 @@ header p {
     box-shadow: 0 2px 10px rgba(218, 165, 32, 0.4);
 }
 
-/* --- EFEITO DE ONDA DE LUZ NO BOTÃO --- */
-.submit-button .light-wave {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2); /* Onda de luz */
-    transform: translateX(-100%);
-    transition: none; /* Evita que a transição padrão atrapalhe a animação */
-    animation: none;
-    z-index: 0; /* Abaixo do texto do botão */
-}
-.submit-button:hover .light-wave {
-    animation: lightWave 0.7s ease-in-out forwards;
-}
-
-
 /* ========================================================== */
-/* 5. TELA DE BÔNUS/ADS */
+/* 5. TELA DE BÔNUS/ADS (AGORA COM ANIMAÇÃO) */
 /* ========================================================== */
 #telaBonus {
     width: 100%;
@@ -386,19 +340,30 @@ header p {
     padding: 40px;
     border-radius: 12px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(218, 165, 32, 0.2);
     margin-top: 30px;
-    border: 1px solid #DAA520;
-    position: relative;
-    z-index: 10;
+    
+    /* --- ESTADO INICIAL DA ANIMAÇÃO (Escondido) --- */
+    /* O display: none; está inline no HTML, o JS vai mudar */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
+
+/* --- ESTADO VISÍVEL (Ativado pelo JS) --- */
+#telaBonus.visible {
+    opacity: 1;
+    transform: translateY(0);
+    
+    /* --- Animação de Brilho Pulsante --- */
+    animation: pulseGlow 3s infinite ease-in-out;
+}
+
+
 #telaBonus h2 {
     color: #DAA520; 
     margin-bottom: 20px;
     font-size: 2em;
     font-weight: 600;
-    /* Animação de brilho no título "Parabéns!" */
-    animation: textGlow 4s ease-in-out infinite; 
 }
 #telaBonus p {
     font-size: 1.1em;
@@ -415,8 +380,6 @@ header p {
     border-radius: 6px;
     display: inline-block;
     min-width: 70px; 
-    /* Animação de pulsação suave no contador */
-    animation: fadeInScale 0.6s ease-out, textGlow 3s ease-in-out infinite;
 }
 
 #linkEbook {
@@ -431,31 +394,12 @@ header p {
     font-size: 1.2em;
     transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
 }
 #linkEbook:hover {
     background: linear-gradient(145deg, #DAA520, #c3a336);
     box-shadow: 0 6px 20px rgba(218, 165, 32, 0.6);
     transform: translateY(-2px);
 }
-#linkEbook .light-wave {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateX(-100%);
-    transition: none;
-    animation: none;
-    z-index: 0;
-}
-#linkEbook:hover .light-wave {
-    animation: lightWave 0.7s ease-in-out forwards;
-}
-
 
 /* ========================================================== */
 /* 6. ESTILO DO BLOCO DE ANÚNCIO (ADSENSE) */
@@ -474,9 +418,7 @@ header p {
     justify-content: center;
     color: #888;
     text-align: center;
-    transition: border-color 0.3s ease;
-    position: relative;
-    z-index: 10;
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
 }
 ins.adsbygoogle {
     background-color: transparent;
@@ -484,9 +426,16 @@ ins.adsbygoogle {
     width: 100%;
     height: 100%;
 }
-ins[data-ad-status="filled"] {
-    border-color: #DAA520; 
+
+/* --- NOVO: Estilo para quando o anúncio CARREGA --- */
+/* O JS do google adiciona 'data-ad-status="filled"' ao <ins> */
+/* Usamos :has() para estilizar o PAI (.adsense-container) */
+.adsense-container:has(ins[data-ad-status="filled"]) {
+    border-color: #DAA520;
+    border-style: solid;
+    box-shadow: 0 0 15px rgba(218, 165, 32, 0.3);
 }
+
 
 /* ========================================================== */
 /* 7. ESTILO DA BARRA DE ROLAGEM (CUSTOM SCROLLBAR) */
@@ -517,12 +466,14 @@ ins[data-ad-status="filled"] {
     }
     header {
         margin-bottom: 30px;
+        animation: none; /* Remove animações no mobile (opcional) */
     }
     header h1 {
         font-size: 2.1em; 
     }
     #cadastroForm {
         padding: 25px; 
+        animation: none; /* Remove animações no mobile (opcional) */
     }
     .radio-group,
     .checkbox-group {
@@ -539,7 +490,7 @@ ins[data-ad-status="filled"] {
     .submit-button {
         padding: 16px 30px;
         font-size: 1.2em;
-        width: 100%; 
+        width: 100%; /* Botão ocupa 100% no mobile */
     }
     
     #telaBonus {
