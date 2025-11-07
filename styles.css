@@ -4,6 +4,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 /* ========================================================== */
+/* 0.1. KEYFRAMES (ANIMAÇÕES CSS) */
+/* ========================================================== */
+@keyframes backgroundPan {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes formPulse {
+    0% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0px rgba(218, 165, 32, 0); }
+    50% { box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 15px rgba(218, 165, 32, 0.2); }
+    100% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0px rgba(218, 165, 32, 0); }
+}
+
+@keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes lightWave {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 5px rgba(218, 165, 32, 0.2); }
+    50% { text-shadow: 0 0 15px rgba(218, 165, 32, 0.7), 0 0 20px rgba(218, 165, 32, 0.5); }
+    100% { text-shadow: 0 0 5px rgba(218, 165, 32, 0.2); }
+}
+
+/* ========================================================== */
 /* 1. RESET E ESTILOS BASE (DARK MODE LUXUOSO) */
 /* ========================================================== */
 * {
@@ -28,6 +59,8 @@ body {
     padding: 40px 20px; 
     min-height: 100vh;
     line-height: 1.6;
+    position: relative; /* Para o fundo animado */
+    overflow-x: hidden; /* Evita scroll horizontal por elementos animados */
     
     /* Renderização de fonte suave */
     -webkit-font-smoothing: antialiased;
@@ -35,10 +68,26 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+/* --- CAMADA DE FUNDO ANIMADA --- */
+#animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Fica atrás de todo o conteúdo */
+    background: linear-gradient(270deg, #121212, #0d0d0d, #121212, #181818);
+    background-size: 400% 400%;
+    animation: backgroundPan 30s ease infinite;
+    opacity: 0.7; /* Suave */
+}
+
 header {
     text-align: center;
     margin-bottom: 40px;
     max-width: 600px;
+    /* Animação de entrada do header */
+    animation: fadeInScale 0.8s ease-out; 
 }
 
 header h1 {
@@ -51,6 +100,8 @@ header h1 {
     font-size: 2.8em;
     font-weight: 300;
     letter-spacing: 0.5px;
+    /* Brilho sutil no H1 */
+    animation: textGlow 5s ease-in-out infinite; 
 }
 
 header p {
@@ -68,8 +119,12 @@ header p {
     background-color: #1a1a1a;
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8); 
+    
+    /* --- ANIMAÇÃO DE PULSAÇÃO SUTIL NO FORM --- */
+    animation: formPulse 8s ease-in-out infinite; 
     border: 1px solid #282828;
+    position: relative;
+    z-index: 10; /* Garante que o formulário fique acima do fundo animado */
 }
 
 .form-group {
@@ -119,13 +174,11 @@ header p {
 }
 
 /* --- LIMPEZA (Correção do "Triângulo") --- */
-/* Remove a seta padrão do navegador para um visual limpo */
 .form-group select {
     appearance: none; 
     -webkit-appearance: none;
     -moz-appearance: none;
     cursor: pointer;
-    /* O padding é o mesmo dos outros inputs, sem setas */
 }
 
 /* ========================================================== */
@@ -139,16 +192,11 @@ header p {
     border-radius: 8px;
     margin-bottom: 30px;
     background-color: #202020;
-    
-    /* Fix para limpar o float da legenda */
     overflow: hidden; 
 }
 
 .radio-group legend,
 .checkbox-group legend {
-    /* === O TRUQUE PARA "EMPURRAR A BORDA" === */
-    /* Força a legenda a ser um bloco de 100% */
-    /* Isso "empurra" a borda do fieldset para cima dela */
     float: left;
     width: 100%;
     
@@ -156,21 +204,18 @@ header p {
     color: #DAA520;
     margin-bottom: 20px;
     
-    /* --- NOVO VISUAL DE TÍTULO --- */
-    padding: 0; /* Limpa o padding antigo */
-    margin-left: 0; /* Limpa o margin antigo */
+    padding: 0; 
+    margin-left: 0; 
     text-align: left;
-    padding-bottom: 15px; /* Espaçamento abaixo */
-    border-bottom: 1px solid #444; /* Linha separadora premium */
+    padding-bottom: 15px; 
+    border-bottom: 1px solid #444; 
 }
 
-/* O resto (radio-option, checkbox-option, etc.) */
 .radio-option,
 .checkbox-option {
     display: flex; 
     align-items: center; 
     margin-bottom: 18px; 
-    /* Adiciona um padding para alinhar com o título */
     padding-left: 5px; 
 }
 .radio-option:last-child,
@@ -193,7 +238,6 @@ header p {
     min-height: 22px; 
 }
 
-/* Esconde o input original */
 .radio-option input[type="radio"],
 .checkbox-option input[type="checkbox"] { 
     opacity: 0; 
@@ -283,6 +327,9 @@ header p {
 .button-container {
     text-align: center; 
     margin-top: 30px; 
+    position: relative; /* Para o efeito de onda de luz */
+    overflow: hidden; /* Garante que a onda fique dentro do botão */
+    border-radius: 8px; /* Mesma borda do botão */
 }
 
 .submit-button {
@@ -298,6 +345,8 @@ header p {
     box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
     transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
     display: inline-block; 
+    position: relative;
+    z-index: 1; /* Acima da onda de luz */
 }
 .submit-button:hover {
     background: linear-gradient(145deg, #DAA520, #c3a336); 
@@ -308,6 +357,24 @@ header p {
     transform: translateY(1px) scale(0.98); 
     box-shadow: 0 2px 10px rgba(218, 165, 32, 0.4);
 }
+
+/* --- EFEITO DE ONDA DE LUZ NO BOTÃO --- */
+.submit-button .light-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2); /* Onda de luz */
+    transform: translateX(-100%);
+    transition: none; /* Evita que a transição padrão atrapalhe a animação */
+    animation: none;
+    z-index: 0; /* Abaixo do texto do botão */
+}
+.submit-button:hover .light-wave {
+    animation: lightWave 0.7s ease-in-out forwards;
+}
+
 
 /* ========================================================== */
 /* 5. TELA DE BÔNUS/ADS */
@@ -322,12 +389,16 @@ header p {
     box-shadow: 0 10px 25px rgba(218, 165, 32, 0.2);
     margin-top: 30px;
     border: 1px solid #DAA520;
+    position: relative;
+    z-index: 10;
 }
 #telaBonus h2 {
     color: #DAA520; 
     margin-bottom: 20px;
     font-size: 2em;
     font-weight: 600;
+    /* Animação de brilho no título "Parabéns!" */
+    animation: textGlow 4s ease-in-out infinite; 
 }
 #telaBonus p {
     font-size: 1.1em;
@@ -344,6 +415,8 @@ header p {
     border-radius: 6px;
     display: inline-block;
     min-width: 70px; 
+    /* Animação de pulsação suave no contador */
+    animation: fadeInScale 0.6s ease-out, textGlow 3s ease-in-out infinite;
 }
 
 #linkEbook {
@@ -358,12 +431,31 @@ header p {
     font-size: 1.2em;
     transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 #linkEbook:hover {
     background: linear-gradient(145deg, #DAA520, #c3a336);
     box-shadow: 0 6px 20px rgba(218, 165, 32, 0.6);
     transform: translateY(-2px);
 }
+#linkEbook .light-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-100%);
+    transition: none;
+    animation: none;
+    z-index: 0;
+}
+#linkEbook:hover .light-wave {
+    animation: lightWave 0.7s ease-in-out forwards;
+}
+
 
 /* ========================================================== */
 /* 6. ESTILO DO BLOCO DE ANÚNCIO (ADSENSE) */
@@ -383,6 +475,8 @@ header p {
     color: #888;
     text-align: center;
     transition: border-color 0.3s ease;
+    position: relative;
+    z-index: 10;
 }
 ins.adsbygoogle {
     background-color: transparent;
@@ -436,7 +530,6 @@ ins[data-ad-status="filled"] {
     }
     .radio-group legend,
     .checkbox-group legend {
-        /* Garante que a legenda não quebre no mobile */
         width: calc(100% - 10px); 
     }
     .form-group {
@@ -446,7 +539,7 @@ ins[data-ad-status="filled"] {
     .submit-button {
         padding: 16px 30px;
         font-size: 1.2em;
-        width: 100%; /* Botão ocupa 100% no mobile */
+        width: 100%; 
     }
     
     #telaBonus {
