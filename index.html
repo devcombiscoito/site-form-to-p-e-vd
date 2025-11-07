@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Bônus - Coleta de Dados Qualificados</title>
+    <title>Formulário Estelar - E-Book Grátis!</title>
     
     <link rel="stylesheet" href="styles.css">
 
@@ -14,134 +14,134 @@
 
 </head>
 <body>
+    <div id="background-animation"></div>
 
-    <header>
-        <h1>Inscreva-se e Ganhe um E-Book Bônus!</h1>
-        <p>Preencha o formulário abaixo para garantir seu acesso e nos ajudar a criar o conteúdo perfeito.</p>
-    </header>
+    <div class="content-wrapper"> <header>
+            <h1><span class="golden-sparkle">✨</span> Inscreva-se e Ganhe um E-Book Bônus! <span class="golden-sparkle">✨</span></h1>
+            <p>Preencha o formulário estelar abaixo para garantir seu acesso e nos ajudar a criar o conteúdo perfeito.</p>
+        </header>
 
-    <form id="cadastroForm">
+        <form id="cadastroForm">
 
-        <div class="form-group">
-            <label for="nomeCompleto">Nome Completo:</label>
-            <input 
-                type="text" 
-                id="nomeCompleto" 
-                name="nome" 
-                placeholder="Seu nome"
-                required
-            >
-        </div>
-
-        <div class="form-group">
-            <label for="emailUsuario">Seu Melhor E-mail:</label>
-            <input 
-                type="email" 
-                id="emailUsuario" 
-                name="email" 
-                placeholder="exemplo@dominio.com"
-                required
-            >
-        </div>
-        
-        <fieldset class="form-group radio-group">
-            <legend>Qual é a sua linguagem de programação favorita?</legend>
-            
-            <div class="radio-option">
-                <input type="radio" id="fav_python" name="linguagem_favorita" value="Python" required>
-                <label for="fav_python">Python</label>
+            <div class="form-group">
+                <label for="nomeCompleto">Nome Completo:</label>
+                <input 
+                    type="text" 
+                    id="nomeCompleto" 
+                    name="nome" 
+                    placeholder="Seu nome"
+                    required
+                >
             </div>
 
-            <div class="radio-option">
-                <input type="radio" id="fav_javascript" name="linguagem_favorita" value="JavaScript" required>
-                <label for="fav_javascript">JavaScript</label>
+            <div class="form-group">
+                <label for="emailUsuario">Seu Melhor E-mail:</label>
+                <input 
+                    type="email" 
+                    id="emailUsuario" 
+                    name="email" 
+                    placeholder="exemplo@dominio.com"
+                    required
+                >
             </div>
             
-            <div class="radio-option">
-                <input type="radio" id="fav_htmlcss" name="linguagem_favorita" value="HTML/CSS" required>
-                <label for="fav_htmlcss">HTML/CSS</label>
+            <fieldset class="form-group radio-group">
+                <legend>Qual é a sua linguagem de programação favorita?</legend>
+                
+                <div class="radio-option">
+                    <input type="radio" id="fav_python" name="linguagem_favorita" value="Python" required>
+                    <label for="fav_python">Python</label>
+                </div>
+
+                <div class="radio-option">
+                    <input type="radio" id="fav_javascript" name="linguagem_favorita" value="JavaScript" required>
+                    <label for="fav_javascript">JavaScript</label>
+                </div>
+                
+                <div class="radio-option">
+                    <input type="radio" id="fav_htmlcss" name="linguagem_favorita" value="HTML/CSS" required>
+                    <label for="fav_htmlcss">HTML/CSS</label>
+                </div>
+            </fieldset>
+
+            <div class="form-group">
+                <label for="nivelAtual">Qual o seu nível atual de experiência em desenvolvimento?</label>
+                <select id="nivelAtual" name="nivel_atual" required>
+                    <option value="" disabled selected>Selecione seu nível</option>
+                    <option value="iniciante">Iniciante (Começando agora)</option>
+                    <option value="junior">Júnior (Conheço o básico)</option>
+                    <option value="pleno">Pleno (Consigo desenvolver projetos sozinho)</option>
+                    <option value="senior">Sênior (Lidero projetos e equipes)</option>
+                </select>
             </div>
-        </fieldset>
 
-        <div class="form-group">
-            <label for="nivelAtual">Qual o seu nível atual de experiência em desenvolvimento?</label>
-            <select id="nivelAtual" name="nivel_atual" required>
-                <option value="" disabled selected>Selecione seu nível</option>
-                <option value="iniciante">Iniciante (Começando agora)</option>
-                <option value="junior">Júnior (Conheço o básico)</option>
-                <option value="pleno">Pleno (Consigo desenvolver projetos sozinho)</option>
-                <option value="senior">Sênior (Lidero projetos e equipes)</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="desafioPrincipal">Qual é o <strong>principal desafio</strong> que você enfrenta hoje?</label>
+                <textarea 
+                    id="desafioPrincipal" 
+                    name="desafio_principal" 
+                    rows="5" 
+                    placeholder="Descreva seu maior obstáculo..."
+                    required
+                ></textarea>
+            </div>
 
-        <div class="form-group">
-            <label for="desafioPrincipal">Qual é o <strong>principal desafio</strong> que você enfrenta hoje?</label>
-            <textarea 
-                id="desafioPrincipal" 
-                name="desafio_principal" 
-                rows="5" 
-                placeholder="Descreva seu maior obstáculo..."
-                required
-            ></textarea>
-        </div>
+            <div class="form-group">
+                <label for="dataLimite">Qual a data limite (prevista) para você resolver este desafio?</label>
+                <input 
+                    type="date" 
+                    id="dataLimite" 
+                    name="data_limite"
+                >
+            </div>
 
-        <div class="form-group">
-            <label for="dataLimite">Qual a data limite (prevista) para você resolver este desafio?</label>
-            <input 
-                type="date" 
-                id="dataLimite" 
-                name="data_limite"
-            >
-        </div>
+            <fieldset class="form-group checkbox-group">
+                <legend>Quais tópicos você <strong>mais deseja</strong> ver no e-book?</legend>
+                
+                <div class="checkbox-option">
+                    <input type="checkbox" id="topico_python" name="interesses" value="Python_Backend">
+                    <label for="topico_python">Python para Back-End e APIs</label>
+                </div>
 
-        <fieldset class="form-group checkbox-group">
-            <legend>Quais tópicos você <strong>mais deseja</strong> ver no e-book?</legend>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="topico_design" name="interesses" value="Design_Responsivo">
+                    <label for="topico_design">Design Responsivo e CSS moderno</label>
+                </div>
+                
+                <div class="checkbox-option">
+                    <input type="checkbox" id="topico_db" name="interesses" value="Modelagem_SQL">
+                    <label for="topico_db">Modelagem de Banco de Dados (SQL)</label>
+                </div>
+            </fieldset>
             
-            <div class="checkbox-option">
-                <input type="checkbox" id="topico_python" name="interesses" value="Python_Backend">
-                <label for="topico_python">Python para Back-End e APIs</label>
+            <div class="form-group">
+                <label for="feedbackEbook">Tem algum feedback ou sugestão específica?</label>
+                <textarea 
+                    id="feedbackEbook" 
+                    name="feedback_ebook" 
+                    rows="3" 
+                    placeholder="Ex: 'Gostaria de exemplos práticos...'"
+                ></textarea>
             </div>
 
-            <div class="checkbox-option">
-                <input type="checkbox" id="topico_design" name="interesses" value="Design_Responsivo">
-                <label for="topico_design">Design Responsivo e CSS moderno</label>
+            <div class="button-container">
+                <button type="submit" class="submit-button">QUERO MEU E-BOOK</button>
             </div>
-            
-            <div class="checkbox-option">
-                <input type="checkbox" id="topico_db" name="interesses" value="Modelagem_SQL">
-                <label for="topico_db">Modelagem de Banco de Dados (SQL)</label>
+
+        </form>
+    </div> <div id="telaBonus" class="bonus-hidden"> <div class="bonus-content">
+            <h2><span class="golden-star">★</span> Parabéns! Quase lá... <span class="golden-star">★</span></h2>
+            <p>Aguarde <span id="contador">30</span> segundos enquanto preparamos seu material estelar.</p>
+
+            <div class="adsense-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8994661261948740"
+                     data-ad-slot="1799600193"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
             </div>
-        </fieldset>
-        
-        <div class="form-group">
-            <label for="feedbackEbook">Tem algum feedback ou sugestão específica?</label>
-            <textarea 
-                id="feedbackEbook" 
-                name="feedback_ebook" 
-                rows="3" 
-                placeholder="Ex: 'Gostaria de exemplos práticos...'"
-            ></textarea>
-        </div>
-
-        <div class="button-container">
-            <button type="submit" class="submit-button">QUERO MEU E-BOOK</button>
-        </div>
-
-    </form>
-
-    <div id="telaBonus" style="display: none;">
-        <h2>Parabéns! Quase lá...</h2>
-        <p>Aguarde <span id="contador">30</span> segundos enquanto preparamos seu material.</p>
-
-        <div class="adsense-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-8994661261948740"
-                 data-ad-slot="1799600193"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-        </div>
-        <a href="#" id="linkEbook" style="display: none;">BAIXAR E-BOOK AGORA!</a>
+            <a href="#" id="linkEbook" class="ebook-link-hidden">BAIXAR SEU E-BOOK AGORA!</a> </div>
     </div>
 
     <script src="script.js"></script>
