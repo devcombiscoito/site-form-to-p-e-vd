@@ -130,7 +130,7 @@ header p {
 
 /* ========================================================== */
 /* 3. ESTILIZAÇÃO DOS AGRUPAMENTOS (RADIO/CHECKBOX) */
-/* (Correção de Alinhamento e "Corte") */
+/* (Correção da Posição da "Pergunta"/Legend) */
 /* ========================================================== */
 .radio-group,
 .checkbox-group {
@@ -139,31 +139,45 @@ header p {
     border-radius: 8px;
     margin-bottom: 30px;
     background-color: #202020;
+    
+    /* Fix para limpar o float da legenda */
+    overflow: hidden; 
 }
 
 .radio-group legend,
 .checkbox-group legend {
+    /* === O TRUQUE PARA "EMPURRAR A BORDA" === */
+    /* Força a legenda a ser um bloco de 100% */
+    /* Isso "empurra" a borda do fieldset para cima dela */
+    float: left;
+    width: 100%;
+    
     font-weight: 600;
     color: #DAA520;
     margin-bottom: 20px;
-    padding: 0 10px;
-    width: auto;
+    
+    /* --- NOVO VISUAL DE TÍTULO --- */
+    padding: 0; /* Limpa o padding antigo */
+    margin-left: 0; /* Limpa o margin antigo */
     text-align: left;
-    margin-left: -10px;
+    padding-bottom: 15px; /* Espaçamento abaixo */
+    border-bottom: 1px solid #444; /* Linha separadora premium */
 }
 
+/* O resto (radio-option, checkbox-option, etc.) */
 .radio-option,
 .checkbox-option {
     display: flex; 
     align-items: center; 
     margin-bottom: 18px; 
+    /* Adiciona um padding para alinhar com o título */
+    padding-left: 5px; 
 }
 .radio-option:last-child,
 .checkbox-option:last-child {
     margin-bottom: 0;
 }
 
-/* A CORREÇÃO DE ALINHAMENTO ACONTECE AQUI */
 .radio-option label,
 .checkbox-option label {
     font-weight: 400; 
@@ -174,10 +188,9 @@ header p {
     cursor: pointer; 
     user-select: none;
     margin-bottom: 0;
-    /* Garante alinhamento vertical perfeito entre o ícone e o texto */
     display: flex; 
     align-items: center;
-    min-height: 22px; /* Garante espaço para o ícone */
+    min-height: 22px; 
 }
 
 /* Esconde o input original */
@@ -195,7 +208,7 @@ header p {
     position: absolute; 
     left: 0; 
     top: 50%;
-    transform: translateY(-50%); /* Alinhado ao centro do label */
+    transform: translateY(-50%); 
     width: 20px; 
     height: 20px; 
     border: 2px solid #555; 
@@ -207,7 +220,6 @@ header p {
     border-color: #DAA520; 
     background-color: #333;
 }
-/* O Círculo de dentro */
 .radio-option label::after {
     content: ''; 
     position: absolute; 
@@ -242,7 +254,6 @@ header p {
     background-color: #DAA520;
     border-color: #DAA520;
 }
-/* O "check" (✓) */
 .checkbox-option label::after {
     content: '✓'; 
     position: absolute; 
@@ -422,6 +433,11 @@ ins[data-ad-status="filled"] {
     .radio-group,
     .checkbox-group {
         padding: 20px;
+    }
+    .radio-group legend,
+    .checkbox-group legend {
+        /* Garante que a legenda não quebre no mobile */
+        width: calc(100% - 10px); 
     }
     .form-group {
         margin-bottom: 25px;
